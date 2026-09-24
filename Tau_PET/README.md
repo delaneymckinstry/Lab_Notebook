@@ -38,8 +38,7 @@ healthy controls, OUD-NOD, and OUD-OD groups.
 ![Representative tau PET maps](Figures/Tau_SUVr_Maps.png)
 
 **Figure 2.** Representative [18F]PI-2620 tau SUVr maps shown in MNI
-space at axial coordinates encompassing the hippocampus/entorhinal
-cortex and the midline.
+space x=28.
 
 **Code**
 
