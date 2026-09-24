@@ -35,6 +35,12 @@ Given the small PET sample, these findings should be interpreted as exploratory.
 **Figure 1.** Hippocampal tau SUVr did not significantly differ among
 healthy controls, OUD-NOD, and OUD-OD groups.
 
+![Representative tau PET maps](Figures/Tau_SUVr_Maps.png)
+
+**Figure 2.** Representative [18F]PI-2620 tau SUVr maps shown in MNI
+space at axial coordinates encompassing the hippocampus/entorhinal
+cortex and the midline.
+
 **Code**
 
 Analysis code used to generate the statistical results and figures is available in the `code/` directory.
