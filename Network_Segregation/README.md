@@ -50,10 +50,17 @@ Individuals with OUD showed significantly lower segregation of both **associatio
 
 Within the association network, lower segregation in OUD was observed in the **cingulo-opercular, default mode, and ventral attention networks** after FDR correction. Within the sensorimotor category, lower segregation was observed in the **hand and visual networks**.
 
+![Network segregation by group](Figures/Network_Segregation_By_Group.png)
+
+**Figure 1.** Association and sensorimotor network segregation were significantly lower in individuals with OUD compared with non-OUD participants.
+
 At the ROI level, OUD was associated with lower segregation in regions including the dorsal anterior cingulate cortex, right anterior insula, bilateral precentral and postcentral gyri, bilateral middle temporal gyri, and bilateral fusiform gyri.
 
 Within the OUD group, longer opioid use was associated with lower association-network segregation (*F*(1,115.00) = 4.05, *p* = 0.046; slope = −2.21 × 10⁻³).
 
+![Association network segregation and years of opioid use](Figures/Association_Network_Segregation_By_Opioid_Use.png)
+
+**Figure 2.** Among individuals with OUD, longer opioid use was associated with lower association network segregation.
 
 **Code**
 
