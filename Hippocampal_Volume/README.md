@@ -14,9 +14,32 @@ hippocampal volume differences?
 
 **Imaging**
 
-Hippocampal volumes were derived from T1-weighted structural MRI scans using the Automatic Segmentation of Hippocampal Subfields (ASHS) pipeline (https://github.com/pyushkevich/ashs), implemented in ITK-SNAP. Segmentation followed established protocols for in vivo structural MRI data (Xie et al., 2019). Total intracranial volume (ICV) was estimated using ASHS-HarP 1.0.2 and used to account for differences in overall brain size.
+Hippocampal volumes were derived from T1-weighted structural MRI scans using the Automatic Segmentation of Hippocampal Subfields (ASHS) pipeline. Segmentation followed established protocols for in vivo structural MRI data (Xie et al., 2019). Total intracranial volume (ICV) was estimated using ASHS-HarP 1.0.2 and used to account for differences in overall brain size.
+
+**Processing Tools**
+
+- **Flywheel:** Imaging data management and processing
+- **DICOM → NIfTI:** [dcm2niix], version 1.3.1_1.0.20201102
+- **Hippocampal segmentation:** [ashs], version 0.1.108
+- **ASHS:** [original repository](https://github.com/pyushkevich/ashs)
 
 
+**Analysis Workflow**
+
+1. T1-weighted structural MRI scans were processed through Flywheel
+   and converted from DICOM to NIfTI format using dcm2niix.
+
+2. Hippocampal subfields were segmented using the ASHS pipeline.
+   ASHS-generated label images were provided as NIfTI files.
+
+3. ASHS segmentation labels were loaded into ITK-SNAP, where
+   hippocampal region volumes were exported to CSV for downstream
+   analysis.
+
+4. Hippocampal volumes were analyzed in R, including group comparisons,
+   covariate-adjusted models, exploratory analyses, and figure
+   generation. The R analysis code is included in this repository.
+   
 **Analysis**
 
 Hippocampal volume was compared across healthy controls (HC), individuals with opioid use disorder without a history of non-fatal overdose (OUD-NOD), and individuals with opioid use disorder and a history of non-fatal overdose (OUD-OD).
