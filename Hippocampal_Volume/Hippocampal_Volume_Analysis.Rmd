@@ -24,9 +24,9 @@ library(ggbeeswarm)
 
 options(pillar.sigfig = 6)
 
-#Load data
+# Load data
 # Set this to the location of the dataset.
-#data_path <- "/path/to/data.xlsx"
+# data_path <- "/path/to/data.xlsx"
 
 dat <- read.xlsx(
   data_path,
@@ -35,7 +35,7 @@ dat <- read.xlsx(
 )
 
 
-#Define variables 
+# Define variables 
 
 dat <- dat %>%
   mutate(
@@ -63,9 +63,9 @@ dat <- dat %>%
     )
   )
 
-#Define scanner
+# Define scanner
 
-#The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
+# The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
 
 dat <- dat %>%
   mutate(
@@ -76,20 +76,18 @@ dat <- dat %>%
     Scanner = factor(Scanner)
   )
 
-#Primary Hippocampal Volume Analysis
-#Three-group ANCOVA
+# Primary Hippocampal Volume Analysis
+# Three-group ANCOVA
 
-#The primary analysis compares hippocampal volume across:
+# The primary analysis compares hippocampal volume across:
 
-#Healthy controls (HC)
-#OUD without a history of non-fatal overdose (OUD-NOD)
-#OUD with a history of non-fatal overdose (OUD-OD)
+# Healthy controls (HC)
+# OUD without a history of non-fatal overdose (OUD-NOD)
+# OUD with a history of non-fatal overdose (OUD-OD)
 
-#Age, sex, and total intracranial volume (ICV) are included as
-#covariates.
+# Age, sex, and total intracranial volume (ICV) are included as covariates.
 
-#Participants classified as "OUD (other)" are excluded from this
-#three-group analysis.
+# Participants classified as "OUD (other)" are excluded from this three-group analysis.
 
 primary_dat <- dat %>%
   filter(Grp != "OUD (other)") %>%
@@ -105,7 +103,7 @@ car::Anova(
   type = 3
 )
 
-#Effect size
+# Effect size
 
 primary_anova <- car::Anova(
   primary_model,
@@ -120,9 +118,9 @@ primary_effect <- effectsize::eta_squared(
 primary_effect
 
 
-#Estimated marginal means
+# Estimated marginal means
 
-#Estimated marginal means provide group means adjusted for age, sex, and ICV.
+# Estimated marginal means provide group means adjusted for age, sex, and ICV.
 
 primary_emmeans <- emmeans(
   primary_model,
@@ -131,14 +129,14 @@ primary_emmeans <- emmeans(
 
 primary_emmeans
 
-#Planned contrasts
+# Planned contrasts
 
-#Two planned comparisons were specified:
+# Two planned comparisons were specified:
 
-#1. Healthy controls vs. the combined OUD groups
-#2. OUD-NOD vs. OUD-OD
+# 1. Healthy controls vs. the combined OUD groups
+# 2. OUD-NOD vs. OUD-OD
 
-#Sidak correction was applied to the planned comparisons.
+# Sidak correction was applied to the planned comparisons.
 
 primary_contrasts <- contrast(
   primary_emmeans,
@@ -151,11 +149,11 @@ primary_contrasts <- contrast(
 
 primary_contrasts
 
-#Confidence intervals
+# Confidence intervals
 
 confint(primary_contrasts)
 
-#Effect sizes for planned contrasts
+# Effect sizes for planned contrasts
 
 eff_size(
   primary_contrasts,
@@ -166,10 +164,9 @@ eff_size(
 
 # Figure Generation
 
-#The figure displays adjusted hippocampal volume by group while retaining individual participant observations.
+# The figure displays adjusted hippocampal volume by group while retaining individual participant observations.
 
-# Remove the effects of the continuous and categorical covariates
-# while retaining the group-specific estimated marginal means.
+# Remove the effects of the continuous and categorical covariates while retaining the group-specific estimated marginal means.
 
 covariate_model <- lm(
   BiHPC_Vol ~ Age + Sex + ICV_cm3,
@@ -238,7 +235,7 @@ hippocampal_plot <- ggplot(
 
 hippocampal_plot
 
-#Save the figure:
+# Save the figure:
 
 ggsave(
   "Figures/Hippocampal_Volumes.png",
@@ -250,17 +247,17 @@ ggsave(
 
 # Scanner-Adjusted Sensitivity Analysis
 
-#A sensitivity analysis was performed to determine whether the hippocampal volume findings persisted after additionally accounting for MRI scanner.
+# A sensitivity analysis was performed to determine whether the hippocampal volume findings persisted after additionally accounting for MRI scanner.
 
-#The revised model includes:
+# The revised model includes:
 
-#1. Group
-#2. Age
-#3. Sex
-#4. ICV
-#5. Scanner
+# 1. Group
+# 2. Age
+# 3. Sex
+# 4. ICV
+# 5. Scanner
 
-#Three-group analysis
+# Three-group analysis
 
 scanner_model_3group <- lm(
   BiHPC_Vol ~ Grp + Age + Sex + ICV_cm3 + Scanner,
@@ -273,7 +270,7 @@ car::Anova(
 )
 
 
-#Estimated marginal means
+# Estimated marginal means
 
 scanner_emmeans <- emmeans(
   scanner_model_3group,
@@ -282,7 +279,7 @@ scanner_emmeans <- emmeans(
 
 scanner_emmeans
 
-#Planned contrasts
+# Planned contrasts
 
 scanner_contrasts <- contrast(
   scanner_emmeans,
@@ -304,9 +301,9 @@ eff_size(
   method = "identity"
 )
 
-#Two-group HC vs. OUD analysis
+# Two-group HC vs. OUD analysis
 
-#The OUD-NOD and OUD-OD groups are combined for a two-group comparison with healthy controls.
+#T he OUD-NOD and OUD-OD groups are combined for a two-group comparison with healthy controls.
 
 scanner_model_2group <- lm(
   BiHPC_Vol ~ Grp_OUD_All + Age + Sex + ICV_cm3 + Scanner,
@@ -332,11 +329,11 @@ contrast(
   )
 )
 
-#Sex × Group Analysis
+# Sex × Group Analysis
 
-#A separate model tests whether the relationship between OUD group and hippocampal volume differs by sex.
+# A separate model tests whether the relationship between OUD group and hippocampal volume differs by sex.
 
-#Three-group interaction
+# Three-group interaction
 
 sex_model_3group <- lm(
   BiHPC_Vol ~ Grp * Sex + Age + ICV_cm3,
@@ -348,7 +345,7 @@ car::Anova(
   type = 3
 )
 
-#Estimated marginal means
+# Estimated marginal means
 
 sex_emmeans <- emmeans(
   sex_model_3group,
@@ -357,15 +354,15 @@ sex_emmeans <- emmeans(
 
 sex_emmeans
 
-#Joint test of group differences within sex
+# Joint test of group differences within sex
 
 joint_tests(
   sex_emmeans
 )
 
-#Two-group interaction
+# Two-group interaction
 
-#A corresponding model examines the Sex × OUD interaction after combining the two OUD groups.
+# A corresponding model examines the Sex × OUD interaction after combining the two OUD groups.
 
 sex_model_2group <- lm(
   BiHPC_Vol ~ Grp_OUD_All * Sex + Age + ICV_cm3,
@@ -377,9 +374,9 @@ car::Anova(
   type = 3
 )
 
-#Summary
+# Summary
 
-#The analyses above reproduce the hippocampal volume statistical framework used in the study, including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, and sex-by-group analyses.
+# The analyses above reproduce the hippocampal volume statistical framework used in the study, including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, and sex-by-group analyses.
 
 #Participant-level data are excluded from this repository.
 
