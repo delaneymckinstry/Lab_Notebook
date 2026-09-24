@@ -58,7 +58,7 @@ At the ROI level, OUD was associated with lower segregation in regions including
 
 Within the OUD group, longer opioid use was associated with lower association-network segregation (*F*(1,115.00) = 4.05, *p* = 0.046; slope = −2.21 × 10⁻³).
 
-![Association network segregation and years of opioid use](Figures/Association_Network_Segregation_By_Opioid_Use.png)
+![Association network segregation and years of opioid use](Figures/Network_Segregation_By_Opioid_Use.png)
 
 **Figure 2.** Among individuals with OUD, longer opioid use was associated with lower association network segregation.
 
