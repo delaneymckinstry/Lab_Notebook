@@ -76,4 +76,5 @@ Given the small sample size, these findings should be interpreted as exploratory
 Analysis code used to calculate episodic memory performance, extract hippocampal task-related activity, and perform group-level statistical analyses is available in the `code/` directory.
 
 **Related Publication**
+
 McKinstry D, et al. Hippocampal volume and brain tau pathology in opioid use disorder: associations with non-fatal opioid overdose. Addict Neurosci. 2026;19:100253. PMID: 41947888
