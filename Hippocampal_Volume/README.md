@@ -32,6 +32,7 @@ Hippocampal volume differed significantly across groups (F(2,75) = 12.76, p < 0.
 A significant sex-by-group interaction was also observed (F(2,73) = 3.17, p = 0.048, partial η² = 0.08), with a larger OUD-related difference in hippocampal volume among women than men.
 
 ![Hippocampal volume across groups](Figures/Hippocampal_Volumes.png)
+
 **Figure 1.** Hippocampal volume was significantly lower in individuals
 with OUD compared with healthy controls, with no significant difference
 between OUD-NOD and OUD-OD groups.
