@@ -61,13 +61,13 @@ Given the small sample size, these findings should be interpreted as exploratory
 
 **Episodic Memory Performance**
 
-![Episodic memory performance](figures/episodic_memory_performance.png)
+![Episodic memory performance](Figures/Memory_Performance.png)
 
 **Figure 1.** Episodic memory performance, quantified using ROC AUC, across healthy controls, OUD-NOD, and OUD-OD groups.
 
 **Hippocampal Neural Activity**
 
-![Hippocampal neural activity during memory encoding](figures/hippocampal_memory_activity.png)
+![Hippocampal neural activity during memory encoding](Figures/Hippocampal_Activity.png)
 
 **Figure 2.** Hippocampal neural activity associated with successful memory encoding (remembered > forgotten) across groups.
 
