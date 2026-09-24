@@ -30,6 +30,10 @@ Similarly, no significant group differences were observed in cortical gray matte
 
 Given the small PET sample, these findings should be interpreted as exploratory.
 
+![Hippocampal tau SUVr across groups](Figures/Hippocampal_Tau_SUVr.png)
+
+**Figure 1.** Hippocampal tau SUVr did not significantly differ among
+healthy controls, OUD-NOD, and OUD-OD groups.
 
 **Code**
 
