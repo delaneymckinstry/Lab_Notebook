@@ -14,7 +14,7 @@ hippocampal volume differences?
 
 **Imaging**
 
-Hippocampal volumes were derived from T1-weighted structural MRI scans using the Automatic Segmentation of Hippocampal Subfields (ASHS) pipeline, implemented in ITK-SNAP. Segmentation followed established protocols for in vivo structural MRI data (Xie et al., 2019). Total intracranial volume (ICV) was estimated using ASHS-HarP 1.0.2 and used to account for differences in overall brain size.
+Hippocampal volumes were derived from T1-weighted structural MRI scans using the Automatic Segmentation of Hippocampal Subfields (ASHS) pipeline (https://github.com/pyushkevich/ashs), implemented in ITK-SNAP. Segmentation followed established protocols for in vivo structural MRI data (Xie et al., 2019). Total intracranial volume (ICV) was estimated using ASHS-HarP 1.0.2 and used to account for differences in overall brain size.
 
 
 **Analysis**
