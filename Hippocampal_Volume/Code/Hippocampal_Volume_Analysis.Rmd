@@ -6,7 +6,8 @@ output: html_notebook
 
 # Overview
 
-# This notebook analyzes bilateral hippocampal volume across healthy controls and individuals with opioid use disorder, including participants with and without a history of non-fatal opioid overdose.
+# This notebook analyzes bilateral hippocampal volume across healthy controls and individuals with opioid use disorder, 
+including participants with and without a history of non-fatal opioid overdose.
 
 # Participant-level data are not included in this repository.
 
@@ -65,7 +66,8 @@ dat <- dat %>%
 
 # Define scanner
 
-# The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
+# The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. 
+Scanner was included as a covariate in a sensitivity analysis.
 
 dat <- dat %>%
   mutate(
@@ -248,7 +250,8 @@ ggsave(
 
 # Scanner-Adjusted Sensitivity Analysis
 
-# A sensitivity analysis was performed to determine whether the hippocampal volume findings persisted after additionally accounting for MRI scanner.
+# A sensitivity analysis was performed to determine whether the hippocampal volume findings persisted after 
+additionally accounting for MRI scanner.
 
 # The revised model includes:
 
@@ -377,7 +380,9 @@ car::Anova(
 
 # Summary
 
-#T he analyses above reproduce the hippocampal volume statistical framework used in the study, including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, and sex-by-group analyses.
+# The analyses above reproduce the hippocampal volume statistical framework used in the study, 
+including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, 
+and sex-by-group analyses.
 
 #Participant-level data are excluded from this repository.
 
