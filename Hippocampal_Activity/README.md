@@ -42,7 +42,6 @@ Mean hippocampal remembered-versus-forgotten contrast values were:
 
 Given the small sample size, these findings should be interpreted as exploratory.
 
-**Figure**
 
 ![Hippocampal neural activity during memory encoding](Figures/Hippocampal_Activity.png)
 
