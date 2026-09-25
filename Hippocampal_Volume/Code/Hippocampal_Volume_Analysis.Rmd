@@ -6,9 +6,9 @@ output: html_notebook
 
 # Overview
 
-#This notebook analyzes bilateral hippocampal volume across healthy controls and individuals with opioid use disorder, including participants with and without a history of non-fatal opioid overdose.
+#T his notebook analyzes bilateral hippocampal volume across healthy controls and individuals with opioid use disorder, including participants with and without a history of non-fatal opioid overdose.
 
-#Participant-level data are not included in this repository.
+# Participant-level data are not included in this repository.
 
 # Data Preparation
 
