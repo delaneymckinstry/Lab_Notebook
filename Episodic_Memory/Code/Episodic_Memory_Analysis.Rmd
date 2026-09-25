@@ -1,0 +1,203 @@
+---
+title: "Episodic_Memory_Analysis"
+output: html_document
+date: "2026-09-25"
+---
+# Overview
+
+#This notebook analyzes episodic memory across healthy controls and individuals with opioid use disorder, including participants with and without a history of non-fatal opioid overdose.
+
+#Participant-level data are not included in this repository.
+
+# Data Preparation
+
+## Load packages
+
+library(car)
+library(emmeans)
+library(effectsize)
+library(ggplot2)
+library(dplyr)
+library(openxlsx)
+library(ggbeeswarm)
+
+options(pillar.sigfig = 6)
+
+#Load data
+# Set this to the location of the dataset.
+#data_path <- "/path/to/data.xlsx"
+
+dat <- read.xlsx(
+  data_path,
+  sheet = "NA",
+  na.strings = "NA"
+)
+
+
+#Define variables 
+
+dat <- dat %>%
+  mutate(
+    Subject_ID = as.factor(Subject_ID),
+    Grp = factor(
+      Grp,
+      levels = c("HC", "OUD-NOD", "OUD-OD", "OUD (other)")
+    ),
+    Grp_OUD_All = factor(
+      Grp_OUD_All,
+      levels = c("HC", "OUD")
+    ),
+    Sex = as.factor(Sex),
+    Race = factor(
+      Race,
+      levels = c("White", "Black", "Asian", "Other")
+    ),
+    Ethnicity = factor(
+      Ethnicity,
+      levels = c("Hispanic", "Non-Hispanic")
+    ),
+    Medication = factor(
+      Medication,
+      levels = c("Methadone", "Buprenorphine", "No medication")
+    )
+  )
+
+#Define scanner
+
+#The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
+
+dat <- dat %>%
+  mutate(
+    Scanner = case_when(
+      Study %in% c("CURE", "XRNT") ~ "TRIO",
+      TRUE ~ "PRISMA"
+    ),
+    Scanner = factor(Scanner)
+  )
+  
+#Three-group ANCOVA
+
+memory_dat <- dat %>%
+  filter(
+    Study == "Tau",
+    Grp != "OUD (other)"
+  ) %>%
+  droplevels()
+
+memory_model <- lm(
+  ROC_AUC ~ Grp,
+  data = memory_dat
+)
+
+car::Anova(
+  memory_model,
+  type = 3
+)
+
+#Effect size
+
+effectsize::eta_squared(
+  memory_model,
+  partial = TRUE
+)
+
+#Estimated marginal means
+
+memory_emmeans <- emmeans(
+  memory_model,
+  ~ Grp
+)
+
+memory_emmeans
+
+#Planned contrasts
+
+#The planned comparisons are:
+
+# 1. Healthy controls vs. the combined OUD groups
+# 2. OUD-NOD vs. OUD-OD
+
+#Sidak correction is applied to the planned comparisons.
+
+memory_contrasts <- contrast(
+  memory_emmeans,
+  method = list(
+    "HC vs OUD" = c(1, -0.5, -0.5),
+    "OUD-NOD vs OUD-OD" = c(0, 1, -1)
+  ),
+  adjust = "sidak"
+)
+
+memory_contrasts
+
+confint(memory_contrasts)
+
+#Effect sizes for planned contrasts
+
+eff_size(
+  memory_contrasts,
+  sigma = sigma(memory_model),
+  edf = df.residual(memory_model),
+  method = "identity"
+)
+
+#Figure Generation
+
+memory_plot <- ggplot(
+  memory_dat,
+  aes(x = Grp, y = ROC_AUC)
+) +
+  geom_boxplot(
+    aes(color = Grp),
+    width = 0.5,
+    linewidth = 1,
+    outlier.shape = NA
+  ) +
+  stat_boxplot(
+    geom = "errorbar",
+    aes(color = Grp),
+    width = 0.5,
+    linewidth = 1
+  ) +
+  geom_jitter(
+    width = 0.08,
+    height = 0,
+    alpha = 0.7
+  ) +
+  theme_linedraw() +
+  labs(
+    x = NULL,
+    y = "Memory performance (ROC AUC)",
+    title = "Episodic Memory Performance"
+  ) +
+  guides(
+    color = "none"
+  ) +
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(size = 12),
+    plot.title = element_text(
+      size = 14,
+      face = "bold",
+      hjust = 0.5
+    )
+  )
+
+memory_plot
+
+#Save the figure
+
+ggsave(
+  "Figures/Episodic_Memory.png",
+  plot = memory_plot,
+  width = 6,
+  height = 5,
+  dpi = 300
+)
+
+
+# Summary
+
+#The analysis compares episodic memory performance across healthy controls, OUD without a history of non-fatal overdose, and OUD with a history of non-fatal overdose using a three-group linear model.
+
+#Participant-level data are excluded from this repository.
