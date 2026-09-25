@@ -44,7 +44,7 @@ Given the small sample size, these findings should be interpreted as exploratory
 
 **Figure**
 
-![Hippocampal neural activity during memory encoding]
+![Hippocampal neural activity during memory encoding](Figures/Hippocampal_Activity.png)
 
 **Figure 1.** Hippocampal neural activity associated with successful memory encoding (remembered > forgotten) across healthy controls, OUD-NOD, and OUD-OD groups.
 
