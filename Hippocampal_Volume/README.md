@@ -62,8 +62,7 @@ between OUD-NOD and OUD-OD groups.
 
 **Code**
 
-The analysis code used to generate the statistical results and figure
-is available in the `code/` directory.
+The analysis code used to generate the statistical results and figure is available in the `Code/` directory.
 
 **Related Publication**
 
