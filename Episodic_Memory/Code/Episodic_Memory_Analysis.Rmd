@@ -23,9 +23,9 @@ library(ggbeeswarm)
 
 options(pillar.sigfig = 6)
 
-#Load data
+# Load data
 # Set this to the location of the dataset.
-#data_path <- "/path/to/data.xlsx"
+# data_path <- "/path/to/data.xlsx"
 
 dat <- read.xlsx(
   data_path,
@@ -34,7 +34,7 @@ dat <- read.xlsx(
 )
 
 
-#Define variables 
+# Define variables 
 
 dat <- dat %>%
   mutate(
@@ -62,9 +62,9 @@ dat <- dat %>%
     )
   )
 
-#Define scanner
+# Define scanner
 
-#The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
+# The hippocampal volume dataset includes scans acquired on Siemens Trio and Prisma scanners. Scanner was included as a covariate in a sensitivity analysis.
 
 dat <- dat %>%
   mutate(
@@ -75,7 +75,7 @@ dat <- dat %>%
     Scanner = factor(Scanner)
   )
   
-#Three-group ANCOVA
+# Three-group ANCOVA
 
 memory_dat <- dat %>%
   filter(
@@ -94,14 +94,14 @@ car::Anova(
   type = 3
 )
 
-#Effect size
+# Effect size
 
 effectsize::eta_squared(
   memory_model,
   partial = TRUE
 )
 
-#Estimated marginal means
+# Estimated marginal means
 
 memory_emmeans <- emmeans(
   memory_model,
@@ -110,14 +110,14 @@ memory_emmeans <- emmeans(
 
 memory_emmeans
 
-#Planned contrasts
+# Planned contrasts
 
-#The planned comparisons are:
+# The planned comparisons are:
 
 # 1. Healthy controls vs. the combined OUD groups
 # 2. OUD-NOD vs. OUD-OD
 
-#Sidak correction is applied to the planned comparisons.
+# Sidak correction is applied to the planned comparisons.
 
 memory_contrasts <- contrast(
   memory_emmeans,
@@ -132,7 +132,7 @@ memory_contrasts
 
 confint(memory_contrasts)
 
-#Effect sizes for planned contrasts
+# Effect sizes for planned contrasts
 
 eff_size(
   memory_contrasts,
@@ -141,7 +141,7 @@ eff_size(
   method = "identity"
 )
 
-#Figure Generation
+# Figure Generation
 
 memory_plot <- ggplot(
   memory_dat,
@@ -185,7 +185,7 @@ memory_plot <- ggplot(
 
 memory_plot
 
-#Save the figure
+# Save the figure
 
 ggsave(
   "Figures/Episodic_Memory.png",
@@ -198,6 +198,6 @@ ggsave(
 
 # Summary
 
-#The analysis compares episodic memory performance across healthy controls, OUD without a history of non-fatal overdose, and OUD with a history of non-fatal overdose using a three-group linear model.
+# The analysis compares episodic memory performance across healthy controls, OUD without a history of non-fatal overdose, and OUD with a history of non-fatal overdose using a three-group linear model.
 
-#Participant-level data are excluded from this repository.
+# Participant-level data are excluded from this repository.
