@@ -1,0 +1,191 @@
+---
+title: "Hippocampal_Activity_Analysis"
+output: html_document
+date: "2026-09-25"
+---
+
+
+# Overview
+
+# This notebook analyzes hippocampal task-related neural activity during episodic memory encoding across healthy controls and individuals with opioid use disorder, including participants with and without a history of non-fatal opioid overdose.
+
+# Participant-level data are not included in this repository.
+
+# Data Preparation
+
+## Load packages
+
+library(car)
+library(emmeans)
+library(effectsize)
+library(ggplot2)
+library(dplyr)
+library(openxlsx)
+library(ggbeeswarm)
+
+options(pillar.sigfig = 6)
+
+
+## Load data
+
+# Set this to the location of the dataset.
+# data_path <- "/path/to/data.xlsx"
+
+
+dat <- read.xlsx(
+  data_path,
+  sheet = "NA",
+  na.strings = "NA"
+)
+
+## Define variables
+
+dat <- dat %>%
+  mutate(
+    Subject_ID = as.factor(Subject_ID),
+    Grp = factor(
+      Grp,
+      levels = c("HC", "OUD-NOD", "OUD-OD", "OUD (other)")
+    ),
+    Grp_OUD_All = factor(
+      Grp_OUD_All,
+      levels = c("HC", "OUD")
+    ),
+    Sex = as.factor(Sex),
+    Race = factor(
+      Race,
+      levels = c("White", "Black", "Asian", "Other")
+    ),
+    Ethnicity = factor(
+      Ethnicity,
+      levels = c("Hispanic", "Non-Hispanic")
+    ),
+    Medication = factor(
+      Medication,
+      levels = c("Methadone", "Buprenorphine", "No medication")
+    )
+  )
+
+
+# Hippocampal Neural Activity
+
+## Analysis Dataset
+
+
+hpc_dat <- dat %>%
+  filter(
+    Study == "Tau",
+    Grp != "OUD (other)"
+  ) %>%
+  droplevels()
+
+
+## Bilateral Hippocampal Activity
+
+The primary analysis examined bilateral hippocampal task-related activity (`BiHPC_task`) across healthy controls, OUD without a history of non-fatal overdose, and OUD with a history of non-fatal overdose.
+
+
+hpc_model <- lm(
+  BiHPC_task ~ Grp,
+  data = hpc_dat
+)
+
+
+### Omnibus Group Test
+
+
+hpc_anova <- car::Anova(
+  hpc_model,
+  type = 3
+)
+
+hpc_anova
+
+
+### Effect Size
+
+
+hpc_effect <- effectsize::eta_squared(
+  hpc_anova,
+  partial = TRUE
+)
+
+hpc_effect
+
+
+### Estimated Marginal Means
+
+
+hpc_emmeans <- emmeans(
+  hpc_model,
+  ~ Grp
+)
+
+hpc_emmeans
+
+
+
+# Figure Generation
+
+The primary figure displays bilateral hippocampal task-related activity across groups.
+
+
+hpc_plot <- ggplot(
+  hpc_dat,
+  aes(x = Grp, y = BiHPC_task)
+) +
+  geom_boxplot(
+    aes(color = Grp),
+    width = 0.5,
+    linewidth = 1,
+    outlier.shape = NA
+  ) +
+  stat_boxplot(
+    geom = "errorbar",
+    aes(color = Grp),
+    width = 0.5,
+    linewidth = 1
+  ) +
+  geom_jitter(
+    width = 0.08,
+    height = 0,
+    alpha = 0.7
+  ) +
+  theme_linedraw() +
+  labs(
+    x = NULL,
+    y = "Hippocampal activity",
+    title = "Hippocampal Neural Activity During Memory Encoding"
+  ) +
+  guides(color = "none") +
+  theme(
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(size = 12),
+    plot.title = element_text(
+      size = 14,
+      face = "bold",
+      hjust = 0.5
+    )
+  )
+
+hpc_plot
+
+
+# Save figure
+
+ggsave(
+  "Figures/Hippocampal_Activity.png",
+  plot = hpc_plot,
+  width = 6,
+  height = 5,
+  dpi = 300
+)
+
+
+# Summary
+
+The analysis examined bilateral hippocampal task-related neural activity during successful episodic memory encoding across healthy controls, OUD without a history of non-fatal overdose, and OUD with a history of non-fatal overdose.
+
+The primary outcome was `BiHPC_task`, representing bilateral hippocampal activity for the remembered > forgotten contrast.
+
+Participant-level data are excluded from this repository.
