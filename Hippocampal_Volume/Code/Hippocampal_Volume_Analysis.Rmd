@@ -381,8 +381,8 @@ car::Anova(
 # Summary
 
 # The analyses above reproduce the hippocampal volume statistical framework used in the study, 
-including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, 
-and sex-by-group analyses.
+# including the primary three-group ANCOVA, planned group contrasts, scanner-adjusted sensitivity analyses, 
+# and sex-by-group analyses.
 
-#Participant-level data are excluded from this repository.
+# Participant-level data are excluded from this repository.
 
