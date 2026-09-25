@@ -42,7 +42,7 @@ space x=28.
 
 **Code**
 
-Analysis code used to generate the statistical results and figures is available in the `code/` directory.
+Analysis code used to generate the statistical results and figures is available in the `Code/` directory.
 
 **Related Publication**
 
